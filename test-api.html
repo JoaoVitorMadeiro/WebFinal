@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste da API - Racha a Conta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #4f8cff;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #4f8cff;
+            padding-bottom: 5px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #4f8cff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #2563c9;
+        }
+        .result {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .error {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .success {
+            background: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        input, select {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .form-group {
+            margin: 10px 0;
+        }
+        label {
+            display: inline-block;
+            width: 100px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Teste da API - Racha a Conta</h1>
+    
+    <div class="container">
+        <h2>📋 Instruções</h2>
+        <p>Esta página permite testar todas as operações HTTP da API:</p>
+        <ul>
+            <li><strong>GET</strong>: Buscar dados</li>
+            <li><strong>POST</strong>: Criar novos dados</li>
+            <li><strong>PUT</strong>: Atualizar dados existentes</li>
+            <li><strong>DELETE</strong>: Excluir dados</li>
+        </ul>
+        <p><strong>Importante:</strong> Certifique-se de que o arquivo <code>api-config.js</code> está configurado com as URLs corretas do seu MockAPI.</p>
+    </div>
+
+    <div class="container">
+        <h2>👥 Testes de Membros</h2>
+        
+        <div class="test-section">
+            <h3>GET - Buscar todos os membros</h3>
+            <button onclick="testGetMembros()">Buscar Membros</button>
+            <div id="result-get-membros" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>POST - Criar novo membro</h3>
+            <div class="form-group">
+                <label>Nome:</label>
+                <input type="text" id="nome-membro" placeholder="Digite o nome">
+            </div>
+            <button onclick="testCreateMembro()">Criar Membro</button>
+            <div id="result-create-membro" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>GET - Buscar membro específico</h3>
+            <div class="form-group">
+                <label>ID:</label>
+                <input type="text" id="id-membro-get" placeholder="Digite o ID">
+            </div>
+            <button onclick="testGetMembro()">Buscar Membro</button>
+            <div id="result-get-membro" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>PUT - Atualizar membro</h3>
+            <div class="form-group">
+                <label>ID:</label>
+                <input type="text" id="id-membro-update" placeholder="Digite o ID">
+            </div>
+            <div class="form-group">
+                <label>Novo Nome:</label>
+                <input type="text" id="nome-membro-update" placeholder="Digite o novo nome">
+            </div>
+            <button onclick="testUpdateMembro()">Atualizar Membro</button>
+            <div id="result-update-membro" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>DELETE - Excluir membro</h3>
+            <div class="form-group">
+                <label>ID:</label>
+                <input type="text" id="id-membro-delete" placeholder="Digite o ID">
+            </div>
+            <button onclick="testDeleteMembro()">Excluir Membro</button>
+            <div id="result-delete-membro" class="result"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>💰 Testes de Despesas</h2>
+        
+        <div class="test-section">
+            <h3>GET - Buscar todas as despesas</h3>
+            <button onclick="testGetDespesas()">Buscar Despesas</button>
+            <div id="result-get-despesas" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>POST - Criar nova despesa</h3>
+            <div class="form-group">
+                <label>Descrição:</label>
+                <input type="text" id="descricao-despesa" placeholder="Digite a descrição">
+            </div>
+            <div class="form-group">
+                <label>Valor:</label>
+                <input type="number" id="valor-despesa" placeholder="0.00" step="0.01">
+            </div>
+            <div class="form-group">
+                <label>Pagador ID:</label>
+                <input type="text" id="pagador-id" placeholder="Digite o ID do pagador">
+            </div>
+            <button onclick="testCreateDespesa()">Criar Despesa</button>
+            <div id="result-create-despesa" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>GET - Buscar despesa específica</h3>
+            <div class="form-group">
+                <label>ID:</label>
+                <input type="text" id="id-despesa-get" placeholder="Digite o ID">
+            </div>
+            <button onclick="testGetDespesa()">Buscar Despesa</button>
+            <div id="result-get-despesa" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>PUT - Atualizar despesa</h3>
+            <div class="form-group">
+                <label>ID:</label>
+                <input type="text" id="id-despesa-update" placeholder="Digite o ID">
+            </div>
+            <div class="form-group">
+                <label>Descrição:</label>
+                <input type="text" id="descricao-despesa-update" placeholder="Digite a descrição">
+            </div>
+            <div class="form-group">
+                <label>Valor:</label>
+                <input type="number" id="valor-despesa-update" placeholder="0.00" step="0.01">
+            </div>
+            <div class="form-group">
+                <label>Pagador ID:</label>
+                <input type="text" id="pagador-id-update" placeholder="Digite o ID do pagador">
+            </div>
+            <button onclick="testUpdateDespesa()">Atualizar Despesa</button>
+            <div id="result-update-despesa" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>DELETE - Excluir despesa</h3>
+            <div class="form-group">
+                <label>ID:</label>
+                <input type="text" id="id-despesa-delete" placeholder="Digite o ID">
+            </div>
+            <button onclick="testDeleteDespesa()">Excluir Despesa</button>
+            <div id="result-delete-despesa" class="result"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>🔧 Teste de Conectividade</h2>
+        <button onclick="testConectividade()">Testar Conectividade da API</button>
+        <div id="result-conectividade" class="result"></div>
+    </div>
+
+    <script src="api-config.js"></script>
+    <script>
+        // Funções de teste para membros
+        async function testGetMembros() {
+            const resultDiv = document.getElementById('result-get-membros');
+            try {
+                const membros = await API.getMembros();
+                resultDiv.className = 'result success';
+                resultDiv.textContent = JSON.stringify(membros, null, 2);
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `Erro: ${error.message}`;
+            }
+        }
+
+        async function testCreateMembro() {
+            const resultDiv = document.getElementById('result-create-membro');
+            const nome = document.getElementById('nome-membro').value;
+            if (!nome) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = 'Erro: Nome é obrigatório';
+                return;
+            }
+            try {
+                const membro = await API.createMembro(nome);
+                resultDiv.className = 'result success';
+                resultDiv.textContent = JSON.stringify(membro, null, 2);
+                document.getElementById('nome-membro').value = '';
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `Erro: ${error.message}`;
+            }
+        }
+
+        async function testGetMembro() {
+            const resultDiv = document.getElementById('result-get-membro');
+            const id = document.getElementById('id-membro-get').value;
+            if (!id) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = 'Erro: ID é obrigatório';
+                return;
+            }
+            try {
+                const membro = await API.getMembro(id);
+                resultDiv.className = 'result success';
+                resultDiv.textContent = JSON.stringify(membro, null, 2);
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `Erro: ${error.message}`;
+            }
+        }
+
+        async function testUpdateMembro() {
+            const resultDiv = document.getElementById('result-update-membro');
+            const id = document.getElementById('id-membro-update').value;
+            const nome = document.getElementById('nome-membro-update').value;
+            if (!id || !nome) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = 'Erro: ID e nome são obrigatórios';
+                return;
+            }
+            try {
+                const membro = await API.updateMembro(id, nome);
+                resultDiv.className = 'result success';
+                resultDiv.textContent = JSON.stringify(membro, null, 2);
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `Erro: ${error.message}`;
+            }
+        }
+
+        async function testDeleteMembro() {
+            const resultDiv = document.getElementById('result-delete-membro');
+            const id = document.getElementById('id-membro-delete').value;
+            if (!id) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = 'Erro: ID é obrigatório';
+                return;
+            }
+            try {
+                const result = await API.deleteMembro(id);
+                resultDiv.className = 'result success';
+                resultDiv.textContent = `Membro excluído com sucesso: ${result}`;
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `Erro: ${error.message}`;
+            }
+        }
+
+        // Funções de teste para despesas
+        async function testGetDespesas() {
+            const resultDiv = document.getElementById('result-get-despesas');
+            try {
+                const despesas = await API.getDespesas();
+                resultDiv.className = 'result success';
+                resultDiv.textContent = JSON.stringify(despesas, null, 2);
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `Erro: ${error.message}`;
+            }
+        }
+
+        async function testCreateDespesa() {
+            const resultDiv = document.getElementById('result-create-despesa');
+            const descricao = document.getElementById('descricao-despesa').value;
+            const valor = document.getElementById('valor-despesa').value;
+            const pagadorId = document.getElementById('pagador-id').value;
+            if (!descricao || !valor || !pagadorId) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = 'Erro: Todos os campos são obrigatórios';
+                return;
+            }
+            try {
+                const despesa = await API.createDespesa(descricao, valor, pagadorId);
+                resultDiv.className = 'result success';
+                resultDiv.textContent = JSON.stringify(despesa, null, 2);
+                document.getElementById('descricao-despesa').value = '';
+                document.getElementById('valor-despesa').value = '';
+                document.getElementById('pagador-id').value = '';
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `Erro: ${error.message}`;
+            }
+        }
+
+        async function testGetDespesa() {
+            const resultDiv = document.getElementById('result-get-despesa');
+            const id = document.getElementById('id-despesa-get').value;
+            if (!id) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = 'Erro: ID é obrigatório';
+                return;
+            }
+            try {
+                const despesa = await API.getDespesa(id);
+                resultDiv.className = 'result success';
+                resultDiv.textContent = JSON.stringify(despesa, null, 2);
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `Erro: ${error.message}`;
+            }
+        }
+
+        async function testUpdateDespesa() {
+            const resultDiv = document.getElementById('result-update-despesa');
+            const id = document.getElementById('id-despesa-update').value;
+            const descricao = document.getElementById('descricao-despesa-update').value;
+            const valor = document.getElementById('valor-despesa-update').value;
+            const pagadorId = document.getElementById('pagador-id-update').value;
+            if (!id || !descricao || !valor || !pagadorId) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = 'Erro: Todos os campos são obrigatórios';
+                return;
+            }
+            try {
+                const despesa = await API.updateDespesa(id, descricao, valor, pagadorId);
+                resultDiv.className = 'result success';
+                resultDiv.textContent = JSON.stringify(despesa, null, 2);
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `Erro: ${error.message}`;
+            }
+        }
+
+        async function testDeleteDespesa() {
+            const resultDiv = document.getElementById('result-delete-despesa');
+            const id = document.getElementById('id-despesa-delete').value;
+            if (!id) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = 'Erro: ID é obrigatório';
+                return;
+            }
+            try {
+                const result = await API.deleteDespesa(id);
+                resultDiv.className = 'result success';
+                resultDiv.textContent = `Despesa excluída com sucesso: ${result}`;
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `Erro: ${error.message}`;
+            }
+        }
+
+        // Teste de conectividade
+        async function testConectividade() {
+            const resultDiv = document.getElementById('result-conectividade');
+            try {
+                const membros = await API.getMembros();
+                resultDiv.className = 'result success';
+                resultDiv.textContent = `✅ API conectada com sucesso!\n\nURLs configuradas:\n- Membros: ${API_MEMBROS}\n- Despesas: ${API_DESPESAS}\n\nMembros encontrados: ${membros.length}`;
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ Erro de conectividade: ${error.message}\n\nVerifique:\n1. Se as URLs estão corretas\n2. Se o MockAPI está funcionando\n3. Se há conexão com a internet`;
+            }
+        }
+    </script>
+</body>
+</html> 

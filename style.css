@@ -1,0 +1,287 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f7f7f7;
+    color: #222;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header, footer {
+    background: #4f8cff;
+    color: #fff;
+    text-align: center;
+    padding: 1.5rem 1rem;
+}
+
+main {
+    flex: 1;
+    width: 100%;
+    max-width: 900px;
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+section {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+}
+
+h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: #4f8cff;
+}
+
+h4 {
+    color: #4f8cff;
+    margin: 0.5rem 0;
+}
+
+form {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+input, select, button {
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+button {
+    background: #4f8cff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    padding: 0.5rem 1rem;
+}
+
+button:hover {
+    background: #2563c9;
+}
+
+ul {
+    list-style: none;
+}
+
+#lista-membros li, #lista-despesas li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+#lista-membros li:last-child, #lista-despesas li:last-child {
+    border-bottom: none;
+}
+
+/* Estilos para ações de membros e despesas */
+.acoes-membro, .acoes-despesa {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-editar, .btn-excluir {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+    border-radius: 3px;
+}
+
+.btn-editar {
+    background: #28a745;
+}
+
+.btn-editar:hover {
+    background: #218838;
+}
+
+.btn-excluir {
+    background: #dc3545;
+}
+
+.btn-excluir:hover {
+    background: #c82333;
+}
+
+/* Estilos para informações de despesa */
+.info-despesa {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    flex: 1;
+}
+
+.info-despesa .descricao {
+    font-weight: bold;
+}
+
+.info-despesa .valor {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.info-despesa .pagador {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 90%;
+}
+
+.modal-content h3 {
+    margin-bottom: 1rem;
+    color: #4f8cff;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.modal-content input,
+.modal-content select {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.botoes-modal {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.btn-cancelar {
+    background: #6c757d;
+}
+
+.btn-cancelar:hover {
+    background: #5a6268;
+}
+
+/* Mensagens */
+.mensagem {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: bold;
+    z-index: 1001;
+    animation: slideIn 0.3s ease-out;
+}
+
+.mensagem-sucesso {
+    background: #28a745;
+}
+
+.mensagem-erro {
+    background: #dc3545;
+}
+
+.mensagem-info {
+    background: #17a2b8;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+#balanco {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+}
+
+#balanco p {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+    border-left: 4px solid #4f8cff;
+}
+
+/* Responsividade */
+@media (max-width: 700px) {
+    main {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin: 1rem;
+    }
+    
+    section {
+        padding: 1rem;
+    }
+    
+    .acoes-membro, .acoes-despesa {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+    
+    .btn-editar, .btn-excluir {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+    }
+    
+    .modal-content {
+        width: 95%;
+        padding: 1.5rem;
+    }
+    
+    .botoes-modal {
+        flex-direction: column;
+    }
+} 

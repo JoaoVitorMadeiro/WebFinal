@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Racha a Conta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Racha a Conta</h1>
+        <p>Divida despesas de forma fácil e transparente!</p>
+    </header>
+    <main>
+        <section id="membros-section">
+            <h2>Membros do Grupo</h2>
+            <form id="form-membro">
+                <input type="text" id="nome-membro" placeholder="Nome do membro" required>
+                <button type="submit">Adicionar Membro</button>
+            </form>
+            <ul id="lista-membros"></ul>
+        </section>
+        <section id="despesas-section">
+            <h2>Nova Despesa</h2>
+            <form id="form-despesa">
+                <input type="text" id="descricao-despesa" placeholder="Descrição" required>
+                <input type="number" id="valor-despesa" placeholder="Valor (R$)" min="0.01" step="0.01" required>
+                <select id="pagador-despesa" required>
+                    <option value="">Quem pagou?</option>
+                </select>
+                <button type="submit">Adicionar Despesa</button>
+            </form>
+        </section>
+        <section id="lista-despesas-section">
+            <h2>Despesas Registradas</h2>
+            <ul id="lista-despesas"></ul>
+        </section>
+        <section id="balanco-section">
+            <h2>Balanço Financeiro</h2>
+            <div id="balanco"></div>
+        </section>
+    </main>
+    <footer>
+        <p>Projeto desenvolvido para gestão de despesas em grupo.</p>
+    </footer>
+    <script src="api-config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
